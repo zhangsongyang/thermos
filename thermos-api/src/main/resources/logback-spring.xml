@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>uplusmessagemanage</contextName>
+    <property name="logFileName" value="${logger.path}/thermos-api/thermos-api.log"/>
+    <property name="zipFileName" value="${logger.path}/thermos-api/thermos-api.%d{yyyy-MM-dd}.zip"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%thread] %-5level %40logger{40}[%line] = %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logFileName}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${zipFileName}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d [%thread] %-5level %40logger{40}[%line] = %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+
+
+</configuration>

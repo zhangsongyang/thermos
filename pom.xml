@@ -8,6 +8,13 @@
     <artifactId>thermos</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>thermos-api</module>
+        <module>thermos-dubbo-api</module>
+        <module>thermos-common</module>
+        <module>thermos-db</module>
+        <module>thermos-server</module>
+    </modules>
 
     <name>thermos</name>
 
@@ -19,7 +26,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <runtimeActivatedEnv>prod</runtimeActivatedEnv>
+                <runtimeActivatedEnv>nacos</runtimeActivatedEnv>
                 <logger.path>/Users/zhangsongyang/logs</logger.path>
                 <nacos.server.registry>127.0.0.1:12181</nacos.server.registry>
             </properties>
@@ -32,7 +39,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <runtimeActivatedEnv>check</runtimeActivatedEnv>
+                <runtimeActivatedEnv>nacos</runtimeActivatedEnv>
                 <logger.path>/Users/zhangsongyang/logs</logger.path>
                 <nacos.server.registry>127.0.0.1:9876</nacos.server.registry>
             </properties>
@@ -45,10 +52,24 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
+        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <spring-cloud-netflix.version>2.1.1.RELEASE</spring-cloud-netflix.version>
+        <spring-cloud-openfeign.version>2.1.1.RELEASE</spring-cloud-openfeign.version>
+        <dubbo.version>2.7.1</dubbo.version>
         <nacos.version>1.0.0</nacos.version>
         <hutool.version>4.5.6</hutool.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshot Repository</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -60,48 +81,37 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- Spring Cloud Alibaba dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>0.9.1.BUILD-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-netflix</artifactId>
+                <version>${spring-cloud-netflix.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-openfeign-dependencies</artifactId>
+                <version>${spring-cloud-openfeign.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-spring-boot-starter</artifactId>
-                <version>2.7.1</version>
-            </dependency>
-
-            <!-- Dubbo -->
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo</artifactId>
-                <version>2.7.1</version>
-            </dependency>
-
-            <!-- Dubbo Registry Nacos -->
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-registry-nacos</artifactId>
-                <version>2.7.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba.nacos</groupId>
-                <artifactId>nacos-client</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.1.16</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.9</version>
+                <artifactId>dubbo-bom</artifactId>
+                <version>${dubbo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
@@ -116,6 +126,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
