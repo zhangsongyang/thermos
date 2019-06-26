@@ -14,6 +14,7 @@
         <module>thermos-common</module>
         <module>thermos-db</module>
         <module>thermos-server</module>
+        <module>thermos-server-all</module>
     </modules>
 
     <name>thermos</name>

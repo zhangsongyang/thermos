@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <contextName>thermos</contextName>
-    <property name="logFileName" value="${logger.path}/thermos-server/thermos.log"/>
-    <property name="zipFileName" value="${logger.path}/thermos/thermos-server.%d{yyyy-MM-dd}.zip"/>
+    <property name="logFileName" value="${logger.path}/thermos-server/thermos-server.log"/>
+    <property name="zipFileName" value="${logger.path}/thermos-server/thermos-server.%d{yyyy-MM-dd}.zip"/>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
