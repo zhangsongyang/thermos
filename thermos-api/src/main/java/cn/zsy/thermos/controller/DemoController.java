@@ -68,8 +68,7 @@ public class DemoController {
 
     @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
     public String tessss() {
-
-        return "asdfasdfsfd";
+        return providerApplicationName;
     }
 
 
