@@ -1,7 +1,7 @@
 package cn.zsy.thermos.service;
 
 import cn.zsy.thermos.domain.User;
-import org.springframework.cloud.alibaba.dubbo.annotation.DubboTransported;
+import com.alibaba.cloud.dubbo.annotation.DubboTransported;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

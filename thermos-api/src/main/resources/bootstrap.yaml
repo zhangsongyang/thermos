@@ -32,6 +32,20 @@ spring:
 
   cloud:
     nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        prefix: example
+        file-extension: yaml
+        group: DEV_GROUP
+        ext-config[0]:
+          data-id: actuator.yaml
+          group: DEV_GROUP
+          refresh: true
+        ext-config[1]:
+          data-id: log.yaml
+          group: DEV_GROUP
+          refresh: true
+        namespace: c98a738d-c2ac-40c1-ad94-b0160b3d9e6e
       discovery:
         enabled: true
         register-enabled: true

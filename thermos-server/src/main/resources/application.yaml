@@ -14,6 +14,12 @@ dubbo:
 #   The traditional Dubbo's registry
 #   address: nacos://127.0.0.1:8848
 
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8085
+
 feign:
   hystrix:
     enabled: true
@@ -22,12 +28,7 @@ server:
   port: 8080
 
 management:
-  endpoint:
-    shutdown:
-      enabled: true
-    health:
-      show-details: always
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: dubborestmetadata
