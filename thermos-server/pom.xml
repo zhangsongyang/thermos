@@ -56,6 +56,11 @@
             <artifactId>alibaba-sentinel-spring-cloud-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-apache-dubbo-adapter</artifactId>
+        </dependency>
+
         <!-- Spring Cloud Nacos Service Discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

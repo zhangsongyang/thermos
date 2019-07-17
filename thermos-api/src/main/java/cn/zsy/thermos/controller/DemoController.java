@@ -4,7 +4,10 @@ import cn.zsy.thermos.domain.User;
 import cn.zsy.thermos.dubbo.service.RestService;
 import cn.zsy.thermos.service.DubboFeignRestService;
 import cn.zsy.thermos.service.FeignRestService;
+import cn.zsy.thermos.service.TestService;
 import com.alibaba.cloud.dubbo.annotation.DubboTransported;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +22,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
+@Slf4j
 @RestController
 public class DemoController {
 
@@ -40,6 +45,9 @@ public class DemoController {
     @Autowired
     @LoadBalanced
     private RestTemplate restTemplate;
+
+    @Autowired
+    private TestService testService;
 
 
     @Bean
@@ -118,11 +126,34 @@ public class DemoController {
     }
 
     @RequestMapping(value = "/maven", method = {RequestMethod.POST, RequestMethod.GET})
+    @SentinelResource(value = "tt", fallback = "fallbackHandler")
     public String testMaven() {
         String maven = restService.param("maven");
         System.out.println(maven);
+        tt(maven);
         return maven;
     }
+
+    public String fallbackHandler() {
+        log.error("fallbackHandler：");
+        return "xxxxxx";
+    }
+
+    public void tt(String str) {
+        if (new Random().nextBoolean()) {
+            throw new RuntimeException("发生异常");
+        } else {
+            log.info("tttttttttt" + str);
+        }
+    }
+
+
+    @RequestMapping(value = "/testX", method = {RequestMethod.POST, RequestMethod.GET})
+    public String testViveSS() {
+        String str = feignRestService.param("hello word");
+        return str;
+    }
+
 
 }
 

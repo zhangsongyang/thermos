@@ -2,6 +2,8 @@ package cn.zsy.thermos.service;
 
 import cn.zsy.thermos.domain.User;
 import cn.zsy.thermos.dubbo.service.RestService;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
 import org.apache.dubbo.rpc.RpcContext;
@@ -25,9 +27,15 @@ public class SpringRestService implements RestService {
 
     @Override
     @GetMapping(value = "/param")
+    @SentinelResource(value = "doSomeThingaA", blockHandler = "exceptionHandler")
     public String param(@RequestParam String param) {
         log("/param", param);
         return param;
+    }
+
+    public String exceptionHandler(String param, BlockException ex) {
+        log.error("blockHandler：" + param, ex);
+        return "blockHandler";
     }
 
     @Override
